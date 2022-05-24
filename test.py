@@ -20,3 +20,4 @@ def test_example(driver):
     time.sleep(1)
     driver.find_element_by_name("btnK").click()
     WebDriverWait(driver, 10).until(EC.title_is("webdriver - Поиск в Google"))
+    print("ok")
