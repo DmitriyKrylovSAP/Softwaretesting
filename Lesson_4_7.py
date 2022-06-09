@@ -22,7 +22,7 @@ def test_all_chapter(driver):
     for list in product_list:
         chapter = driver.find_element_by_xpath(list)
         # составляем список товаров в разделе
-        product_list = chapter.find_elements_by_xpath(".//li")
+        product_list = chapter.find_elements_by_xpath(".//*[contains(@class, 'hover-light')]")
         # для каждого товара проверяем стикер
         for product in product_list:
             assert product.find_element_by_xpath(".//div[contains(@class, 'sticker')]")
