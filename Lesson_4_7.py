@@ -15,14 +15,14 @@ def test_all_chapter(driver):
     #открытие главной
     driver.get("http://localhost/litecart")
     #список разделов с товарор
-    product_list = {"//*[@id='box-most-popular']",
-                    "//*[@id='box-campaigns']",
-                    "//*[@id='box-latest-products']"}
+    product_list = {"box-most-popular",
+                    "box-campaigns",
+                    "box-latest-products"}
     # перебираем все разделы из списка
     for list in product_list:
-        chapter = driver.find_element_by_xpath(list)
+        chapter = driver.find_element_by_id(list)
         # составляем список товаров в разделе
-        product_list = chapter.find_elements_by_xpath(".//*[contains(@class, 'hover-light')]")
+        product_list = chapter.find_elements_by_class_name("product column")
         # для каждого товара проверяем стикер
         for product in product_list:
-            assert product.find_element_by_xpath(".//div[contains(@class, 'sticker')]")
+            assert product.find_element_by_class_name("sticker")
