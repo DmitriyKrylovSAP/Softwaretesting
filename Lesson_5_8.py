@@ -26,14 +26,14 @@ def test_all_chapter(driver):
     countrie_with_zone = []
     #перебираем все строки
     for countrie in countries:
-        # поиск первой буквы названи страны и перевод в нижний регистр
-        countrie_letter = countrie.find_element_by_xpath(".//a").get_attribute("text")[0].lower()
+        # поиск названия страны и перевод в нижний регистр
+        countrie_lower = countrie.find_element_by_xpath(".//a").get_attribute("text").lower()
         #  составляем список стран с зонами
         if int(countrie.find_element_by_xpath(".//td[6]").get_attribute("innerText")) != 0:
             countrie_with_zone.append(countrie.find_element_by_xpath(".//a").get_attribute("text"))
         # проверка того, что страны идут по порядку
-        assert countrie_letter_sample <= countrie_letter
-        countrie_letter_sample = countrie_letter
+        assert countrie_letter_sample <= countrie_lower
+        countrie_letter_sample = countrie_lower
 
     #  ищем название страны с поиске и проверяем зоны в ней
     for countrie_zone in countrie_with_zone:
@@ -46,9 +46,9 @@ def test_all_chapter(driver):
                 for zone_name in zone:
                     # проверяем что название зоны не пустое
                     if len(zone_name.find_element_by_xpath("./..").get_attribute("innerText")) > 0:
-                        zone_letter = str(zone_name.find_element_by_xpath("./..").get_attribute("innerText")[0]).lower()
-                        assert zone_letter_sample <= zone_letter
-                        zone_letter_sample = zone_letter
+                        zone_lower = str(zone_name.find_element_by_xpath("./..").get_attribute("innerText")).lower()
+                        assert zone_letter_sample <= zone_lower
+                        zone_letter_sample = zone_lower
                 break
         driver.back()
 
