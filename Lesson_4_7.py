@@ -22,7 +22,8 @@ def test_all_chapter(driver):
     for list in product_list:
         chapter = driver.find_element_by_id(list)
         # составляем список товаров в разделе
-        product_list = chapter.find_elements_by_class_name("product column")
+        product_list = chapter.find_elements_by_css_selector(".product.column")
+        print(product_list)
         # для каждого товара проверяем стикер
         for product in product_list:
             assert product.find_element_by_class_name("sticker")
