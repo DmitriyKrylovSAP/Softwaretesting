@@ -20,7 +20,7 @@ def test_all_chapter(driver):
     driver.find_element_by_name("password").send_keys("admin")
     driver.find_element_by_name("login").click()
     # открытие страницы с геозонами
-    driver.get(" http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones")
+    driver.get("http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones")
     countries = driver.find_elements_by_xpath("//*[@name='geo_zones_form']//tr[@class='row']")
     countrie_list = []
     # составляем список стран
@@ -34,15 +34,12 @@ def test_all_chapter(driver):
         zone_sample = "A"
         # для кажой зоны делаем проверку
         for zone in zones:
-            if len(zone.get_attribute("value")) > 0:
-                # получаем код n-ой зоны
-                zone_code = zone.get_attribute("value")
-                # для каждой строчки зоны ищем соответствие зоны и кода,
-                # на случай если где-то может быть изменено название без смены кода
-                zone_codes = zone.find_elements_by_xpath("./*[@value]")
-                for zone_finde in zone_codes:
-                    if zone_finde.get_attribute("value") == zone_code:
-                        # проверка что название зоны больше предидущего
-                        assert zone_sample <= zone_finde.get_attribute("text")
-                        zone_sample = zone_finde.get_attribute("text")
+            # получаем знаячение свойства
+            innerHTML =zone.get_attribute("innerHTML")
+            # ищем индекс первой и послудней буквы геозоны
+            first_letter = innerHTML.find("selected") + 20
+            last_letter = innerHTML[first_letter:].find("</op") + first_letter
+            if len(innerHTML[first_letter:last_letter]) > 0:
+                assert zone_sample <= innerHTML[first_letter:last_letter]
+                zone_sample = innerHTML[first_letter:last_letter]
         driver.back()
