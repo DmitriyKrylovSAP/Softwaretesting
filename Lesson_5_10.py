@@ -45,7 +45,8 @@ def test_all_chapter(driver):
     # акционная цена жирная
     assert int(main_campaign_price_weight) > 400
     # акционная цена выше обычной
-    assert main_campaign_price_size > main_regular_price_size
+    assert int(ast.literal_eval(main_campaign_price_size.strip("px"))) > int(
+        ast.literal_eval(main_regular_price_size.strip("px")))
     product.click()
 
     # -------------------
@@ -81,4 +82,5 @@ def test_all_chapter(driver):
     # акционная цена жирная
     assert int(product_campaign_price_weight) > 400
     # акционная цена выше обычной
-    assert product_campaign_price_size > product_regular_price_size
+    assert int(ast.literal_eval(product_campaign_price_size.strip("px"))) > int(
+        ast.literal_eval(product_regular_price_size.strip("px")))
