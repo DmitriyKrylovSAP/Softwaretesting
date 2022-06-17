@@ -34,12 +34,9 @@ def test_all_chapter(driver):
         zone_sample = "A"
         # для кажой зоны делаем проверку
         for zone in zones:
-            # получаем знаячение свойства
-            innerHTML =zone.get_attribute("innerHTML")
-            # ищем индекс первой и послудней буквы геозоны
-            first_letter = innerHTML.find("selected") + 20
-            last_letter = innerHTML[first_letter:].find("</op") + first_letter
-            if len(innerHTML[first_letter:last_letter]) > 0:
-                assert zone_sample <= innerHTML[first_letter:last_letter]
-                zone_sample = innerHTML[first_letter:last_letter]
+            # получаем название геозоны
+            opt = zone.find_element_by_xpath("./option[@selected]").get_attribute("innerHTML")
+            if len(opt) > 0:
+                assert zone_sample <= opt
+                zone_sample = opt
         driver.back()
