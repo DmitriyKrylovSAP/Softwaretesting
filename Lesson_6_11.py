@@ -2,6 +2,7 @@ import time
 import faker
 import pytest
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -29,8 +30,12 @@ def test_all_chapter(driver):
     driver.find_element_by_name("email").send_keys(mail)
     driver.find_element_by_name("password").send_keys(passw)
     driver.find_element_by_name("confirmed_password").send_keys(passw)
-    driver.find_element_by_xpath("//*[text()='United States']").click()
+    driver.find_element_by_class_name("select2-selection__arrow").click()
+    driver.find_element_by_class_name("select2-search__field").send_keys("United States")
+    driver.find_element_by_class_name("select2-search__field").send_keys(Keys.ENTER)
     time.sleep(1)
+    # не уверен, стоит ли кликать на селект
+    driver.find_element_by_xpath("//select[@name = 'zone_code']").click()
     driver.find_element_by_xpath("//*[text()='Alaska']").click()
     driver.find_element_by_name("create_account").click()
     # выход
