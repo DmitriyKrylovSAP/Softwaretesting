@@ -42,13 +42,13 @@ def test_all_chapter(driver):
             if countrie.find_element_by_xpath(".//a").get_attribute("text") == countrie_zone:
                 countrie.find_element_by_xpath(".//a").click()
                 zone = driver.find_elements_by_xpath("//*[@id='table-zones']//*[contains(@name, '[name]')]")
-                zone_letter_sample = "a"
+                zone_sample = "a"
                 for zone_name in zone:
                     # проверяем что название зоны не пустое
                     if len(zone_name.find_element_by_xpath("./..").get_attribute("innerText")) > 0:
                         zone_lower = str(zone_name.find_element_by_xpath("./..").get_attribute("innerText")).lower()
-                        assert zone_letter_sample <= zone_lower
-                        zone_letter_sample = zone_lower
+                        assert zone_sample <= zone_lower
+                        zone_sample = zone_lower
                 break
         driver.back()
 
